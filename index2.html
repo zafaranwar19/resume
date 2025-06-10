@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined Layout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Global & Layout Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Dark background for contrast */
+            display: flex; /* Use flexbox for layout */
+            flex-direction: row; /* Default to side-by-side */
+            min-height: 100vh;
+            margin: 0;
+            /* Removed overflow: hidden; from body to allow scrolling on panels */
+            color: #e2e8f0; /* Light text color for overall page */
+        }
+
+        .left-panel {
+            flex: 1; /* Takes available space */
+            padding: 1.5rem;
+            overflow-y: auto; /* Allow scrolling for resume content */
+            background-color: #2d3748; /* Same as canvas background */
+            border-right: 1px solid #4a5568; /* Separator */
+            /* Ensure the left panel takes up full height of its container if content is short,
+               but allows scrolling if content is long */
+            height: 100vh; /* Set a specific height to ensure scrolling works within the panel */
+            box-sizing: border-box; /* Include padding in height calculation */
+        }
+
+        .right-panel {
+            flex: 1; /* Takes available space */
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            padding: 1.5rem;
+            height: 100vh; /* Ensure right panel also takes full height */
+            box-sizing: border-box;
+        }
+
+        /* Resume Specific Styles (copied from user's provided HTML) */
+        .left-panel h1, .left-panel h2 { color: #81e6d9; } /* Cyan for headings */
+        .left-panel h1 { font-size: 28px; margin-bottom: 5px; }
+        .left-panel h2 { font-size: 20px; margin-top: 30px; }
+        .left-panel p, .left-panel li { font-size: 14px; }
+        .left-panel ul { margin-top: 0; padding-left: 20px;}
+        .left-panel .contact { margin-bottom: 20px; color: #a0aec0;} /* Lighter grey for contact */
+        .left-panel .section { margin-top: 20px; }
+        .left-panel .position-title { font-weight: bold; }
+        .left-panel .company-location { font-style: italic; color: #cbd5e0; } /* Even lighter grey */
+        .left-panel a { color: #63b3ed; text-decoration: none;} /* Blue link */
+        .left-panel a:hover { text-decoration: underline;}
+
+
+        /* Animation Canvas Specific Styles */
+        #animationCanvas {
+            background-color: #2d3748; /* Canvas background */
+            border-radius: 1rem; /* Rounded corners for the canvas */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            display: block; /* Important for canvas */
+            max-width: 100%; /* Max width relative to its parent (right-panel) */
+            max-height: 100%; /* Max height relative to its parent */
+            /* Ensure it scales proportionally within the right panel */
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column; /* Stack vertically */
+                overflow-y: auto; /* Allow overall scrolling for the stacked layout */
+            }
+            .left-panel {
+                border-right: none;
+                border-bottom: 1px solid #4a5568; /* Separator when stacked */
+                height: auto; /* Allow left panel to take natural height when stacked */
+                max-height: 50vh; /* Limit height to prevent resume from taking up entire screen on mobile */
+            }
+            .right-panel {
+                height: 50vh; /* Give animation a fixed height on mobile */
+            }
+            #animationCanvas {
+                width: 95%; /* Adjust canvas size for mobile */
+                height: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="left-panel">
+        <h1>Zafar Anwar</h1>
+        <div class="contact">
+            Bentonville, Arkansas 72713 ⎮ (628) 298-8579 ⎮ zafaranwar851@gmail.com <br />
+            <a href="https://www.linkedin.com/in/zafar-anwar-profile">linkedin.com/in/zafar-anwar-profile</a>
+        </div>
+
+        <h2>SUMMARY</h2>
+        <p>
+            A results-driven and seasoned software development professional with extensive experience designing, implementing, and optimizing Java and J2EE applications. Expertise in Spring Boot, RESTful APIs, Microservices, AppDynamics, and cloud/devops tools like Docker, Kubernetes, Jenkins. Known for translating complex technical concepts and thriving in Agile environments.
+        </p>
+        <ul>
+            <li>Software Development | Application Customization | CI/CD Pipeline</li>
+            <li>Incident Response | Root Cause Analysis | Team Leadership</li>
+            <li>Agile Methodology | Communication | Cybersecurity</li>
+        </ul>
+
+        <h2>TECHNICAL SKILLS</h2>
+        <ul>
+            <li><strong>Architecture:</strong> Sequence, Flow, Component Diagrams</li>
+            <li><strong>Languages:</strong> Java (JDK 6–21)</li>
+            <li><strong>Frameworks:</strong> Spring Boot, JUnit, Mockito</li>
+            <li><strong>Messaging:</strong> Apache Kafka</li>
+            <li><strong>Databases:</strong> Azure SQL Server, Informix DB</li>
+            <li><strong>Tools:</strong> Maven, IntelliJ, VS Code, PyCharm</li>
+            <li><strong>PLM:</strong> PTC PLM Windchill (Java Spring, XML)</li>
+        </ul>
+
+        <h2>EXPERIENCE</h2>
+        <div class="section">
+            <p><span class="position-title">Software Engineer III</span> — <span class="company-location">Walmart, Bentonville, AR (2021–2025)</span></p>
+            <ul>
+                <li>Developed Kafka service for data sync and REST APIs with Swagger</li>
+                <li>Used Docker for deployment; wrote unit tests with PowerMockito</li>
+                <li>Converted service to Java 17; POC in Java 21 with Spring Boot</li>
+                <li>Followed Agile practices using Jira</li>
+            </ul>
+
+            <p><span class="position-title">Technical Lead</span> — <span class="company-location">ATCS Inc., Atlanta, GA (2019–2021)</span></p>
+            <ul>
+                <li>Designed Java and J2EE applications; tested Spring Boot microservices</li>
+                <li>Created lexical analyzer in C and Farmers KIOSK in JSP/DB2</li>
+                <li>Used AppDynamics, performed root cause and performance analysis</li>
+            </ul>
+
+            <p><span class="position-title">Cybersecurity Consultant</span> — <span class="company-location">Delixus Inc., Bengaluru, India (2018–2019)</span></p>
+            <ul>
+                <li>Integrated cloud providers; implemented Kafka clusters and Swagger</li>
+            </ul>
+
+            <p><span class="position-title">Senior Software Developer (Contract)</span> — <span class="company-location">Verizon, Piscataway, NJ (2018)</span></p>
+            <ul>
+                <li>Built Angular UIs and Spring Boot microservices; used REST APIs and functional programming</li>
+            </ul>
+
+            <p><span class="position-title">Senior Java Developer (Contract)</span> — <span class="company-location">Charter Communications, St. Louis, MO (2018)</span></p>
+            <ul>
+                <li>Designed sequence diagrams and implemented service discovery with Hystrix and Eureka</li>
+            </ul>
+
+            <p><span class="position-title">Java Developer</span> — <span class="company-location">Computer Enterprises Inc., Philadelphia, PA (2017)</span></p>
+            <ul>
+                <li>Enhanced performance of apps using RxJava; integrated Jenkins & Selenium</li>
+            </ul>
+
+            <p><span class="position-title">Technical Lead</span> — <span class="company-location">Wipro Technologies, Boston, MA (2014–2017)</span></p>
+            <ul>
+                <li>Developed Spring Boot services for cloud management; solved memory and deployment issues</li>
+            </ul>
+
+            <p><span class="position-title">Senior Software Engineer</span> — <span class="company-location">HCL Technologies, Bangalore, India (2013–2014)</span></p>
+            <ul>
+                <li>Customized Windchill PDMLink; migrated Perl to Java using Spring MVC</li>
+            </ul>
+
+            <p><span class="position-title">Senior Software Engineer</span> — <span class="company-location">Delixus Inc., Bengaluru, India (2006–2013)</span></p>
+            <ul>
+                <li>Managed survey programming team and executed client surveys</li>
+            </ul>
+        </div>
+
+        <h2>PROJECT EXPERIENCE</h2>
+        <ul>
+            <li><strong>Walmart:</strong> Label Data Orchestration (2019–2025) – Maintained microservices, integrated APIs, tested and deployed</li>
+            <li><strong>Tenable:</strong> Vulnerability Detection System (2018–2019) – Used Kotlin, Kafka, Swagger</li>
+            <li><strong>Verizon:</strong> Line Activation System (2018) – Customized REST APIs and deployed</li>
+            <li><strong>Charter:</strong> Spectrum Services App (2018) – Built sequence diagrams, integrated REST APIs</li>
+            <li><strong>Comcast:</strong> X-Ray CCRPIL (2017) – Performance enhancements using RxJava</li>
+            <li><strong>State Street:</strong> Cloud Management (2017) – Fixed JVM issues, supported services</li>
+        </ul>
+
+        <h2>EDUCATION</h2>
+        <p><strong>Siddaganga Institute of Technology</strong>, Tumakuru, Karnataka, India<br/>
+        Bachelor of Engineering, Computer Science</p>
+    </div>
+
+    <div class="right-panel">
+        <canvas id="animationCanvas"></canvas>
+    </div>
+
+    <script>
+        // Ensure the global variables are defined or set to a default for local testing
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        const canvas = document.getElementById('animationCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas dimensions
+        const setCanvasSize = () => {
+            const rightPanel = document.querySelector('.right-panel');
+            if (rightPanel) {
+                // Adjust canvas size to fit within the right panel dynamically,
+                // leaving some padding/margin visually
+                const availableWidth = rightPanel.clientWidth - (2 * 1.5 * 16); // Account for right-panel padding (1.5rem)
+                const availableHeight = rightPanel.clientHeight - (2 * 1.5 * 16); // Account for right-panel padding (1.5rem)
+
+                // Set a desired aspect ratio, e.g., 4:3 or 16:9 for the animation
+                const aspectRatio = 4 / 3;
+
+                let newWidth = availableWidth;
+                let newHeight = availableWidth / aspectRatio;
+
+                if (newHeight > availableHeight) {
+                    newHeight = availableHeight;
+                    newWidth = availableHeight * aspectRatio;
+                }
+
+                canvas.width = Math.min(newWidth, 800); // Max width 800px
+                canvas.height = Math.min(newHeight, 600); // Max height 600px
+            } else {
+                // Fallback for standalone testing
+                canvas.width = Math.min(window.innerWidth * 0.45, 800);
+                canvas.height = Math.min(window.innerHeight * 0.7, 600);
+            }
+        };
+        setCanvasSize();
+        window.addEventListener('resize', setCanvasSize); // Make canvas responsive
+
+        // Animation states
+        const STATES = {
+            NOTHING: 0,
+            DOTS: 1,
+            POINTS: 2,
+            NUMBERS: 3,
+            FUNCTION: 4,
+            JAVA_CODE: 5
+        };
+
+        let currentState = STATES.NOTHING;
+        let frameCount = 0;
+        let animationProgress = 0; // 0 to 1 for current stage
+        const stageDuration = 200; // Frames per stage (adjust for speed of non-code stages)
+
+        let randomDots = [];
+        let gridPoints = [];
+        const gridSize = 10;
+        const dotRadius = 2;
+        const pointRadius = 3;
+
+        // Java code lines for display, now including lambdas for math operations
+        const javaCodeLines = [
+            "// Functional Interface for a binary operation",
+            "@FunctionalInterface",
+            "interface BinaryOperation {",
+            "    double apply(double a, double b);",
+            "}",
+            "",
+            "public class MathOperations {",
+            "    public static void main(String[] args) {",
+            "        // Basic arithmetic operations using lambdas",
+            "        BinaryOperation add = (a, b) -> a + b;",
+            "        BinaryOperation subtract = (a, b) -> a - b;",
+            "        BinaryOperation multiply = (a, b) -> a * b;",
+            "        BinaryOperation divide = (a, b) -> {",
+            "            if (b == 0) throw new IllegalArgumentException(\"Cannot divide by zero\");",
+            "            return a / b;",
+            "        };",
+            "",
+            "        // Example usage:",
+            "        System.out.println(\"Addition: \" + add.apply(10.0, 5.0));",
+            "        System.out.println(\"Subtraction: \" + subtract.apply(10.0, 5.0));",
+            "        System.out.println(\"Multiplication: \" + multiply.apply(10.0, 5.0));",
+            "        System.out.println(\"Division: \" + divide.apply(10.0, 5.0));",
+            "    }",
+            "}"
+        ];
+        let currentCodeLine = 0;
+        let currentCodeChar = 0;
+        let lineTypeProgress = 0; // Tracks frames spent pausing after a line is typed
+        const charsPerFrame = 1; // Speed of typing characters
+        const framesPerLinePause = 40; // Frames to pause after typing a line before moving to next
+
+        // Function to draw text centrally
+        function drawCenteredText(text, y, color, font, alpha = 1) {
+            ctx.globalAlpha = alpha;
+            ctx.fillStyle = color;
+            ctx.font = font;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, canvas.width / 2, y);
+            ctx.globalAlpha = 1;
+        }
+
+        // Main animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas each frame
+
+            frameCount++;
+            animationProgress = (frameCount % stageDuration) / stageDuration;
+
+            const xCenter = canvas.width / 2;
+            const yCenter = canvas.height / 2;
+
+            switch (currentState) {
+                case STATES.NOTHING:
+                    drawCenteredText('Nothing...', yCenter, `rgba(255, 255, 255, ${animationProgress * 0.5})`, '24px Inter');
+                    break;
+
+                case STATES.DOTS:
+                    const maxDots = 100;
+                    const dotsToDraw = Math.floor(animationProgress * maxDots);
+                    if (randomDots.length < maxDots) {
+                        for (let i = randomDots.length; i < dotsToDraw; i++) {
+                            randomDots.push({
+                                x: Math.random() * canvas.width,
+                                y: Math.random() * canvas.height
+                            });
+                        }
+                    }
+                    ctx.fillStyle = 'rgba(144, 202, 249, 0.8)'; // Light blue dots
+                    randomDots.forEach(dot => {
+                        ctx.beginPath();
+                        ctx.arc(dot.x, dot.y, dotRadius, 0, Math.PI * 2);
+                        ctx.fill();
+                    });
+                    break;
+
+                case STATES.POINTS:
+                    if (gridPoints.length === 0) {
+                        const startX = (canvas.width - gridSize * 40) / 2;
+                        const startY = (canvas.height - gridSize * 40) / 2;
+                        for (let i = 0; i < gridSize; i++) {
+                            for (let j = 0; j < gridSize; j++) {
+                                gridPoints.push({
+                                    targetX: startX + j * 40,
+                                    targetY: startY + i * 40,
+                                    currentX: randomDots[Math.min(i * gridSize + j, randomDots.length - 1)]?.x || Math.random() * canvas.width,
+                                    currentY: randomDots[Math.min(i * gridSize + j, randomDots.length - 1)]?.y || Math.random() * canvas.height
+                                });
+                            }
+                        }
+                    }
+                    ctx.fillStyle = 'rgba(76, 175, 80, 0.8)'; // Green points
+                    gridPoints.forEach(p => {
+                        p.currentX = p.currentX + (p.targetX - p.currentX) * animationProgress;
+                        p.currentY = p.currentY + (p.targetY - p.currentY) * animationProgress;
+                        ctx.beginPath();
+                        ctx.arc(p.currentX, p.currentY, pointRadius, 0, Math.PI * 2);
+                        ctx.fill();
+                    });
+                    break;
+
+                case STATES.NUMBERS:
+                    ctx.fillStyle = 'rgba(76, 175, 80, 0.8)'; // Green points
+                    ctx.font = '12px Inter';
+                    ctx.textAlign = 'left';
+                    gridPoints.forEach((p, index) => {
+                        ctx.beginPath();
+                        ctx.arc(p.targetX, p.targetY, pointRadius, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.globalAlpha = animationProgress;
+                        ctx.fillStyle = 'white';
+                        const col = index % gridSize;
+                        const row = Math.floor(index / gridSize);
+                        ctx.fillText(`(${col}, ${row})`, p.targetX + 8, p.targetY + 4);
+                        ctx.globalAlpha = 1;
+                    });
+                    break;
+
+                case STATES.FUNCTION:
+                    const graphColor = 'rgba(255, 152, 0, 0.9)'; // Orange for graph
+                    const funcTextColor = `rgba(255, 255, 255, ${animationProgress})`; // White text fading in
+                    gridPoints = []; // Clear previous state
+                    randomDots = []; // Clear previous state
+
+                    ctx.strokeStyle = 'rgba(200, 200, 200, 0.7)';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(canvas.width / 2, 0); // Y-axis
+                    ctx.lineTo(canvas.width / 2, canvas.height);
+                    ctx.moveTo(0, canvas.height / 2); // X-axis
+                    ctx.lineTo(canvas.width, canvas.height / 2);
+                    ctx.stroke();
+
+                    ctx.strokeStyle = graphColor;
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    const xRange = 10;
+                    const yRange = 25;
+
+                    for (let i = 0; i <= canvas.width * animationProgress; i++) {
+                        const screenX = i;
+                        const mathX = (screenX - canvas.width / 2) / (canvas.width / xRange);
+                        const mathY = mathX * mathX;
+                        const screenY = canvas.height / 2 - (mathY * (canvas.height / yRange));
+
+                        if (i === 0) {
+                            ctx.moveTo(screenX, screenY);
+                        } else {
+                            ctx.lineTo(screenX, screenY);
+                        }
+                    }
+                    ctx.stroke();
+                    drawCenteredText('$y = x^2$', yCenter - 100, funcTextColor, '36px Inter');
+                    break;
+
+                case STATES.JAVA_CODE:
+                    ctx.globalAlpha = 0.5 + (animationProgress * 0.5); // Fade in from 50% to 100% opacity
+
+                    const startXCode = 50;
+                    const startYCode = 50;
+                    const lineHeight = 24;
+                    ctx.font = '16px "Fira Code", monospace'; // Monospace font for code
+                    ctx.textAlign = 'left';
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'; // White color for code
+
+                    // Display all previously typed lines completely
+                    for (let i = 0; i < currentCodeLine; i++) {
+                        ctx.fillText(javaCodeLines[i], startXCode, startYCode + i * lineHeight);
+                    }
+
+                    // Type out the current line character by character, or pause if fully typed
+                    if (currentCodeLine < javaCodeLines.length) {
+                        const line = javaCodeLines[currentCodeLine];
+                        const lineLength = line.length;
+
+                        if (currentCodeChar < lineLength) {
+                            // Typing characters
+                            currentCodeChar = Math.min(lineLength, currentCodeChar + charsPerFrame);
+                            ctx.fillText(line.substring(0, currentCodeChar), startXCode, startYCode + currentCodeLine * lineHeight);
+                        } else {
+                            // Line fully typed, now pause before moving to next line
+                            ctx.fillText(line, startXCode, startYCode + currentCodeLine * lineHeight); // Ensure full line is displayed during pause
+
+                            lineTypeProgress++; // Increment pause counter for this line
+                            if (lineTypeProgress >= framesPerLinePause) {
+                                currentCodeLine++;
+                                currentCodeChar = 0;
+                                lineTypeProgress = 0; // Reset for next line
+                            }
+                        }
+                    } else {
+                        // All lines have been typed. Keep displaying the full code for the remainder of the stage.
+                        for (let i = 0; i < javaCodeLines.length; i++) {
+                            ctx.fillText(javaCodeLines[i], startXCode, startYCode + i * lineHeight);
+                        }
+                    }
+                    break;
+            }
+
+            // State transition logic
+            // For JAVA_CODE, transition only when all lines are typed AND stageDuration is complete.
+            // For other states, transition when stageDuration is complete.
+            if (currentState === STATES.JAVA_CODE) {
+                if (currentCodeLine >= javaCodeLines.length && frameCount >= stageDuration) {
+                    currentState = STATES.NOTHING; // Loop animation
+                    frameCount = 0; // Reset frame count for smooth looping
+                    // Reset all stage-specific variables for the next loop
+                    randomDots = [];
+                    gridPoints = [];
+                    currentCodeLine = 0;
+                    currentCodeChar = 0;
+                    lineTypeProgress = 0;
+                }
+            } else {
+                if (frameCount % stageDuration === 0 && frameCount > 0) {
+                    currentState++;
+                    frameCount = 0; // Reset frame count for the new stage's progress
+                    // Reset all stage-specific variables for the new stage
+                    randomDots = [];
+                    gridPoints = [];
+                    currentCodeLine = 0;
+                    currentCodeChar = 0;
+                    lineTypeProgress = 0;
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // Start the animation on window load.
+        window.onload = function () {
+            animate();
+        }
+    </script>
+</body>
+</html>
